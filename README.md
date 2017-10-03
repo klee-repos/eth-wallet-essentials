@@ -7,5 +7,7 @@ The files in this repository are to be used with a Truffle with Webpack deployme
 * Truffle
 * Webpack
 
+Demo and accounts in screenshot deployed on a private net blockchain.
+
 ![Image of wallet demo](https://github.com/lynkr/eth-wallet-essentials/blob/master/img/wallet-transaction-example.png)
 
