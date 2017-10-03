@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Basic Ethereum Wallet</title>
+  <script src="./app.js"></script>
+</head>
+<body>
+  <div class="container">
+
+    <div class="row">
+      <div class="col-lg-12">
+        <h1>Ethereum Multi-signature Wallet</h1>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-7">
+        <h3>Wallet contract address </h3><h5><span id="walletAddress"></span> and contains <b><span id="walletEther"></span> ether</b></h5>
+        <button type="button" class="btn btn-default" onclick="App.submitEtherToWallet()">Add ether to wallet</button>
+      </div>
+      <div class="col-lg-5">
+        <h3>Available accounts</h3>
+        <span id="accounts"></span>
+      </div>
+    </div>
+<br />
+<br />
+    <div class="row">
+      <div class="col-lg-7">
+        <h3>Check account balance</h3>
+          <form onsubmit="App.checkBalance(); return false;">
+            <div class="form-group">
+              <label for="to_balance">To (address)</label>
+              <input type="text" class="form-control" id="to_balance">
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+          </form>
+      </div>
+      <div class="col-lg-5">
+        <h3><span id="accountid"></span></h3>
+        <span id="accountbalance"></span>
+      </div>
+    </div>
+<br />
+<br />
+    <div class="row">
+      <div class="col-lg-7">
+        <h3>Transfer ether</h3>
+        <form onsubmit="App.transferEther(); return false;">
+            <div class="form-group">
+              <label for="from_transfer">From (address)</label>
+              <input type="text" class="form-control" id="from_transfer">
+            </div>
+            <div class="form-group">
+              <label for="to_transfer">To (address)</label>
+              <input type="text" class="form-control" id="to_transfer">
+            </div>
+            <div class="form-group">
+              <label for="amount_transfer">Amount</label>
+              <input type="text" class="form-control" id="amount_transfer">
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+          </form>
+      </div>
+      <div class="col-lg-5">
+        <h3><span id="log_title_transfer"></span></h3>
+        <span id="from_details_transfer"></span>
+        <span id="to_details_transfer"></span>
+      </div>
+    </div>
+<br />
+<br />
+    <div class="row">
+      <div class="col-lg-7">
+       <h3>Proposal to send ether</h3>
+        <form onsubmit="App.submitProposal(); return false;">
+          <div class="form-group">
+            <label for="creator_proposal">Creator (address)</label>
+            <input type="text" class="form-control" id="creator_proposal">
+          </div>
+          <div class="form-group">
+            <label for="to_proposal">To (address)</label>
+            <input type="text" class="form-control" id="to_proposal">
+          </div>
+          <div class="form-group">
+            <label for="amount">Amount</label>
+            <input type="text" class="form-control" id="amount">
+          </div>
+          <div class="form-group">
+            <label for="reason">Reason</label>
+            <input type="text" class="form-control" id="reason">
+          </div>
+          <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+      </div>
+      <div class="col-lg-5">
+        <h3><span id="log-title"></span></h3>
+        <span id="message"></span>
+      </div>
+    </div>
+
+<span id="log"></span>
+
+
+  </div>
+</body>
+</html>
