@@ -15,87 +15,54 @@
 
     <div class="row">
       <div class="col-lg-7">
-        <h3>Wallet contract address </h3><h5><span id="walletAddress"></span> and contains <b><span id="walletEther"></span> ether</b></h5>
-        <button type="button" class="btn btn-default" onclick="App.submitEtherToWallet()">Add ether to wallet</button>
+        <h3>Wallet contract address </h3>
+        <h5><i><span id="walletAddress"></span></i></h5>
+        <h5><span id="walletEther"></span> ether</h5>
+        <button type="button" class="btn btn-default" onclick="App.sendToWallet()">Add 5 ether to wallet</button>
       </div>
       <div class="col-lg-5">
-        <h3>Available accounts</h3>
+        <h3>My accounts</h3>
         <span id="accounts"></span>
       </div>
     </div>
 <br />
 <br />
     <div class="row">
-      <div class="col-lg-7">
-        <h3>Check account balance</h3>
-          <form onsubmit="App.checkBalance(); return false;">
-            <div class="form-group">
-              <label for="to_balance">To (address)</label>
-              <input type="text" class="form-control" id="to_balance">
-            </div>
-            <button type="submit" class="btn btn-default">Submit</button>
-          </form>
-      </div>
-      <div class="col-lg-5">
-        <h3><span id="accountid"></span></h3>
-        <span id="accountbalance"></span>
-      </div>
-    </div>
-<br />
-<br />
-    <div class="row">
-      <div class="col-lg-7">
-        <h3>Transfer ether</h3>
+      <div class="col-lg-12">
+        <h3>Transfer ether from wallet</h3>
         <form onsubmit="App.transferEther(); return false;">
-            <div class="form-group">
-              <label for="from_transfer">From (address)</label>
-              <input type="text" class="form-control" id="from_transfer">
-            </div>
             <div class="form-group">
               <label for="to_transfer">To (address)</label>
               <input type="text" class="form-control" id="to_transfer">
             </div>
             <div class="form-group">
-              <label for="amount_transfer">Amount</label>
+              <label for="amount_transfer">Amount (ether)</label>
               <input type="text" class="form-control" id="amount_transfer">
+            </div>
+            <div class="form-group">
+              <label for="reason_transfer">Reason for transfer</label>
+              <input type="text" class="form-control" id="reason_transfer">
             </div>
             <button type="submit" class="btn btn-default">Submit</button>
           </form>
-      </div>
-      <div class="col-lg-5">
-        <h3><span id="log_title_transfer"></span></h3>
-        <span id="from_details_transfer"></span>
-        <span id="to_details_transfer"></span>
       </div>
     </div>
 <br />
 <br />
     <div class="row">
       <div class="col-lg-7">
-       <h3>Proposal to send ether</h3>
-        <form onsubmit="App.submitProposal(); return false;">
+       <h3>Confirm a proposal</h3>
+        <form onsubmit="App.confirmProposal(); return false;">
           <div class="form-group">
-            <label for="creator_proposal">Creator (address)</label>
-            <input type="text" class="form-control" id="creator_proposal">
-          </div>
-          <div class="form-group">
-            <label for="to_proposal">To (address)</label>
-            <input type="text" class="form-control" id="to_proposal">
-          </div>
-          <div class="form-group">
-            <label for="amount">Amount</label>
-            <input type="text" class="form-control" id="amount">
-          </div>
-          <div class="form-group">
-            <label for="reason">Reason</label>
-            <input type="text" class="form-control" id="reason">
+            <label for="id_proposal">Proposal ID</label>
+            <input type="text" class="form-control" id="id_proposal">
           </div>
           <button type="submit" class="btn btn-default">Submit</button>
         </form>
       </div>
       <div class="col-lg-5">
-        <h3><span id="log-title"></span></h3>
-        <span id="message"></span>
+        <h3><span id="proposals_title"></span></h3>
+        <span id="proposals_list"></span>
       </div>
     </div>
 

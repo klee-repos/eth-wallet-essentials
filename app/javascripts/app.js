@@ -19,6 +19,8 @@ var MyWallet = contract(myWallet_artifact);
 var accounts;
 var account;
 
+var proposals =[];
+
 window.App = {
   start: function() {
     var self = this;
@@ -41,9 +43,8 @@ window.App = {
       accounts = accs;
       account = accounts[0];
 
-      document.getElementById("accounts").innerHTML = accounts.join("<br />");
-
       App.basicInfoUpdate();
+      
 
     });
   },
@@ -58,62 +59,58 @@ window.App = {
         document.getElementById("walletAddress").innerHTML = instance.address;
         document.getElementById("walletEther").innerHTML = web3.fromWei(balance, "ether");
       })
+      web3.eth.getBalance(account, function(err, balance) {
+        if (err != null) {
+          alert("There was an error updating account balances");
+          return;
+        }
+        document.getElementById("accounts").innerHTML = "<i>" + accounts.join("<br />") + "</i><br /><h5>" + web3.fromWei(balance, "ether") + " ether</h5>";
+      })
+      App.listenToEvents();
     })
   },
 
-  checkBalance: function() {
-    var _account = document.getElementById("to_balance").value;
+  sendToWallet: function() {
     MyWallet.deployed().then(function(instance) {
-      document.getElementById("accountid").innerHTML = "Account balance";
-      document.getElementById("accountbalance").innerHTML = web3.fromWei(web3.eth.getBalance(_account).toNumber(), "ether") + " ether";
+      return instance.sendTransaction({from: account, to: instance.address, value: web3.toWei(5, "ether")});
+    }).then(function(result) {
+      console.log(result);
+      App.basicInfoUpdate();
+      alert("Transfer complete!");
     })
   },
 
   transferEther: function() {
-    var _from = document.getElementById("from_transfer").value;
+    var txId;
     var _to = document.getElementById("to_transfer").value;
     var _amount = document.getElementById("amount_transfer").value;
+    var _reason = document.getElementById("reason_transfer").value;
     MyWallet.deployed().then(function(instance) {
-      return web3.eth.sendTransaction({from: _from, to: _to, value: web3.toWei(_amount, "ether")});
+      return instance.spendMoneyOn(_to, web3.toWei(_amount, "ether"), _reason, {from: account});
     }).then(function(result) {
+      App.basicInfoUpdate();
       console.log(result);
-      document.getElementById("log_title_transfer").innerHTML = "Transfer details";
-      document.getElementById("from_details_transfer").innerHTML = _from + "<br /> balance is now " + web3.fromWei(web3.eth.getBalance(_from).toNumber(), "ether") + "<br /><br />";
-      document.getElementById("to_details_transfer").innerHTML = _to + "<br /> balance is now " + web3.fromWei(web3.eth.getBalance(_to).toNumber(), "ether") + "<br /><br />";
-      App.basicInfoUpdate();
     })
   },
 
-  submitEtherToWallet: function() {
+  confirmProposal: function() {
+    var _id_proposal = document.getElementById("id_proposal").value;
     MyWallet.deployed().then(function(instance) {
-      return instance.sendTransaction({from: account, to: instance.address, value: web3.toWei(5, "ether")});
+      return instance.confirmProposal(_id_proposal, {from: account});
     }).then(function(result) {
       App.basicInfoUpdate();
-    })
-  },
-
-  submitProposal: function() {
-    var _from = document.getElementById("creator_proposal").value;
-    var _to = document.getElementById("to_proposal").value;
-    var _amount = document.getElementById("amount").value;
-    var _msg = document.getElementById("reason").value;
-    MyWallet.deployed().then(function(instance) {
-      return instance.spendMoneyOn(_to, web3.toWei(_amount, "ether"), _msg, {from: _from, gas: 500000});
-    }).then(function(result) {
       console.log(result);
-      var fullMessage = "";
-     
-      for (var i = 0; i < result.logs.length; i++) {
-        fullMessage += JSON.stringify(result.logs[i]) + "<br />";
-      }
-      document.getElementById("log-title").innerHTML = "Transaction details";
-      document.getElementById("message").innerHTML = fullMessage;
-      App.basicInfoUpdate();
+      alert("Proposal confirmed and ethere sent!");
     })
   },
 
-  sendCoin: function() {
-    var self = this;
+  listenToEvents: function() {
+    MyWallet.deployed().then(function(instance) {
+      instance.proposalReceived().watch(function(err, event) {
+        console.log(event);
+        console.log(event.args._id.toNumber());
+      })
+    })
   }
 
 };
