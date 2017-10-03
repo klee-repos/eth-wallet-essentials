@@ -1,3 +1,9 @@
 # Ethereum wallet demo files
 
-Files for ethereum wallet demo deployed on Truffle with Webpack.
+The files in this repository are to be used with a Truffle with Webpack deployment on the Ethereum blockchain.
+
+**Stack**
+* Ethereum blockchain
+* Truffle
+* Webpack
+
