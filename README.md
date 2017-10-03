@@ -4,6 +4,7 @@ The files in this repository are to be used with a Truffle with Webpack deployme
 * Ethereum blockchain
 * Truffle
 * Webpack
+* Bootstrap
 
 Demo and accounts in screenshot deployed on a private net blockchain.
 
